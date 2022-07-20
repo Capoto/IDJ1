@@ -43,6 +43,12 @@
         "streambuf": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "sdl_include.h": "c"
+        "sdl_include.h": "c",
+        "sdl.h": "c",
+        "gameobject.h": "c",
+        "component.h": "c",
+        "sdl_image.h": "c",
+        "map": "c",
+        "cstring": "cpp"
     }
 }

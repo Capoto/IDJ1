@@ -7,11 +7,13 @@ using namespace std;
 #include "SDL_include.h"
 #include "Game.h"
 #include "State.h"
+#include "Resources.h"
+#include "InputManager.h"
+
 
 Game* Game::instance = nullptr;
 
-Game::Game(string title, int  width  , int  height )
-{
+Game::Game(string title, int  width  , int  height ) :  dt(0), frameStart(0){
 
 
     if(instance==nullptr){
@@ -72,8 +74,8 @@ Game::Game(string title, int  width  , int  height )
     }
     else{
 
-        cout <<"A instancia ja existe"<< endl;
-        exit(1);
+          Game::state = new State();
+
     }
     
  
@@ -83,7 +85,11 @@ Game::~Game(){
 
 
 
-     
+    delete state;
+
+  Resources::ClearImages();
+  Resources::ClearMusics();
+  Resources::ClearSounds();
     
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -97,15 +103,7 @@ Game::~Game(){
 
 }
 
-Game &Game::GetInstance() {
-    if(instance == nullptr) {
-        instance = new Game("GAME_NAME",1024 ,600);
-        
-        
-    }
 
-    return *instance;
-}
 
 SDL_Renderer *Game::GetRenderer() {
     return renderer;
@@ -118,12 +116,42 @@ SDL_Renderer *Game::GetRenderer() {
 void Game::Run(){
     
     state = new State;
+    GetInstance().state->LoadAssets();
     while(state->QuitRequested() != true){
-     state->Update(45);
+     CalculateDeltaTime();   
+     InputManager::GetInstance().Update();
+     state->Update(GetDeltaTime());
      state->Render();
-     SDL_RenderPresent(renderer);
+     SDL_RenderPresent(GetInstance().renderer);
      SDL_Delay(33);
      
      
     }
 }
+
+
+State& Game::GetState() {
+  return *state;
+}
+Game& Game::GetInstance() {
+  
+  if (Game::instance == nullptr) {
+    Game::instance = new Game("Heitor Gomes Pereira - 19/0108363", 1024, 600);
+  }
+  return *instance;
+}
+
+
+void Game::CalculateDeltaTime(){
+
+    int ticks = SDL_GetTicks();
+    dt = (ticks - frameStart)/1000.;
+    frameStart = ticks;
+
+} 
+
+float Game::GetDeltaTime(){
+
+    return dt;
+}
+

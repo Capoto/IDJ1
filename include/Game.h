@@ -1,13 +1,7 @@
 #ifndef GAME_H 
 #define GAME_H 
-#include <cstdlib>
-#include <iostream>
-#include <ctime>
 using namespace std;
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_mixer.h>
-#include <SDL2/SDL_ttf.h>
+#include "SDL_include.h"
 #include "State.h"
 
 
@@ -20,6 +14,9 @@ private:
    SDL_Window* window;
    SDL_Renderer* renderer;
    State* state;
+   int frameStart;
+   float dt;
+   void CalculateDeltaTime();
  
 public:
     ~Game();
@@ -27,6 +24,7 @@ public:
     SDL_Renderer* GetRenderer();
     State& GetState();
     static Game& GetInstance();
+    float GetDeltaTime();
  
 };
 #endif
