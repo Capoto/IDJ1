@@ -49,6 +49,7 @@
         "component.h": "c",
         "sdl_image.h": "c",
         "map": "c",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "sdl_ttf.h": "c"
     }
 }
