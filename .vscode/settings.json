@@ -50,6 +50,7 @@
         "sdl_image.h": "c",
         "map": "c",
         "cstring": "cpp",
-        "sdl_ttf.h": "c"
+        "sdl_ttf.h": "c",
+        "sdl_mixer.h": "c"
     }
 }
