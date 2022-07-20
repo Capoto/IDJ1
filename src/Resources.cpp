@@ -16,7 +16,15 @@ SDL_Texture* Resources::GetImage(std::string file) {
     return foundIt->second;
   } else {
     SDL_Texture* sdlTexture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
+
+     if (sdlTexture == nullptr) {
+      SDL_Log("Unable to initialize Texture %s: %s", file.c_str(), SDL_GetError());
+      exit(EXIT_FAILURE);
+    }
+
     Resources::imageTable.insert({file, sdlTexture});
+
+
     return sdlTexture;
   }
 }
