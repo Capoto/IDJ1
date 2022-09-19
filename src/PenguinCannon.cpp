@@ -12,6 +12,7 @@ using namespace std;
 #include <Collider.h>
 #include <Timer.h>
 #include <Sound.h>
+#include <Camera.h>
 #include "PenguinCannon.h"
 
 
@@ -34,7 +35,7 @@ if(body.IsDead()){
    
 
     associated.box = body.box;
-    associated.angleDeg = (Vec2(InputManager::GetInstance().GetMouseX(),InputManager::GetInstance().GetMouseY()) - associated.box.GetCenter()).InclXDeg();
+    associated.angleDeg = (Vec2(InputManager::GetInstance().GetMouseX()+Camera::pos.x,InputManager::GetInstance().GetMouseY()+Camera::pos.y) - associated.box.GetCenter()).InclXDeg();
     angle = (float)associated.angleDeg;
 
     if(InputManager::GetInstance().MousePress(LEFT_MOUSE_BUTTON)){
